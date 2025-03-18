@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface LivroRepository extends JpaRepository<Livro, UUID> {
-
     // Query method
     // select * from livro where id_autor = id
     List<Livro> findByAutor(Autor autor);
@@ -73,4 +72,6 @@ public interface LivroRepository extends JpaRepository<Livro, UUID> {
     @Transactional
     @Query(" update Livro set dataPublicacao = ?1 where id = ?2 ")
     void updateDataPublicacao(LocalDate data, UUID id);
+
+    boolean existsByAutor(Autor autor);
 }
