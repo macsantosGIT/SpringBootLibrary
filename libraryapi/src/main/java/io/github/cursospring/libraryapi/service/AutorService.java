@@ -1,10 +1,13 @@
 package io.github.cursospring.libraryapi.service;
 
+import com.fasterxml.jackson.databind.introspect.BasicClassIntrospector;
 import io.github.cursospring.libraryapi.exceptions.OperacaoNaoPermitidaException;
 import io.github.cursospring.libraryapi.model.Autor;
 import io.github.cursospring.libraryapi.repository.AutorRepository;
 import io.github.cursospring.libraryapi.repository.LivroRepository;
 import io.github.cursospring.libraryapi.validator.AutorValidator;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,6 +64,20 @@ public class AutorService {
             return repository.findByNacionalidade(nacionalidade);
         }
         return repository.findAll();
+    }
+
+    public  List<Autor> pesquisaByExample(String nome, String nacionalidade){
+        var autor = new Autor();
+        autor.setNome(nome);
+        autor.setNacionalidade(nacionalidade);
+        Example.of(autor);
+        ExampleMatcher matcher = ExampleMatcher
+                .matching()
+                .withIgnoreNullValues()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        Example<Autor> autorExample = Example.of(autor, matcher);
+        return repository.findAll(autorExample);
     }
 
     public boolean possuiLivro(Autor autor){
