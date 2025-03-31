@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "livro", schema = "public")
 @ToString(exclude = "autor")
+@EntityListeners(AuditingEntityListener.class)
 public class Livro {
 
     @Id
@@ -40,7 +42,7 @@ public class Livro {
             //cascade = CascadeType.ALL //nao eh bom utilizar em producao soh para exemplo
             fetch = FetchType.LAZY // Não seleciona o Autor na consulta do livro
              )
-    @JoinColumn(name = "autor_id")
+    @JoinColumn(name = "id_autor")
     private Autor autor;
 
     @CreatedDate
