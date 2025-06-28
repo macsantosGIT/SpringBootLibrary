@@ -2,8 +2,10 @@ package io.github.cursospring.libraryapi.service;
 
 import io.github.cursospring.libraryapi.model.GeneroLivro;
 import io.github.cursospring.libraryapi.model.Livro;
+import io.github.cursospring.libraryapi.model.Usuario;
 import io.github.cursospring.libraryapi.repository.LivroRepository;
 import io.github.cursospring.libraryapi.repository.specs.LivroSpecs;
+import io.github.cursospring.libraryapi.security.SecurityService;
 import io.github.cursospring.libraryapi.validator.LivroValidator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,14 +25,19 @@ public class LivroService {
 
     private final LivroRepository repository;
     private final LivroValidator validator;
+    private final SecurityService securityService;
 
-    public LivroService(LivroRepository repository, LivroValidator validator) {
+    public LivroService(LivroRepository repository, LivroValidator validator,
+                        SecurityService securityService) {
         this.repository = repository;
         this.validator = validator;
+        this.securityService = securityService;
     }
 
     public Livro salvar(Livro livro) {
         validator.validar(livro);
+        Usuario usuario = securityService.obterUsuarioLogago();
+        livro.setUsuario(usuario);
         return repository.save(livro);
     }
 
