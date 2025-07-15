@@ -22,6 +22,9 @@ public class Usuario {
     @Column
     private String senha;
 
+    @Column
+    private String email;
+
     @Type(ListArrayType.class)
     @Column(name="roles", columnDefinition = "varchar[]")
     private List<String> roles;
@@ -50,6 +53,14 @@ public class Usuario {
         this.senha = senha;
     }
 
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
     public List<String> getRoles() {
         return roles;
     }
@@ -58,5 +69,15 @@ public class Usuario {
         this.roles = roles;
     }
 
-
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }
+
