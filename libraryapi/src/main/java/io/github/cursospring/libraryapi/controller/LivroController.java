@@ -6,6 +6,7 @@ import io.github.cursospring.libraryapi.controller.mappers.LivroMapper;
 import io.github.cursospring.libraryapi.model.GeneroLivro;
 import io.github.cursospring.libraryapi.model.Livro;
 import io.github.cursospring.libraryapi.service.LivroService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/livros")
 // http://localhost:8080/livros
+@Tag(name = "Livros", description = "Gerenciamento de livros")
 public class LivroController implements GenericController {
 
     private final LivroService service;

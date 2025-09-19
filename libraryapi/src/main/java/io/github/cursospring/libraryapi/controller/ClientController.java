@@ -2,6 +2,7 @@ package io.github.cursospring.libraryapi.controller;
 
 import io.github.cursospring.libraryapi.model.Client;
 import io.github.cursospring.libraryapi.service.ClientService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("clients")
+@Tag(name = "Clients", description = "Gerenciamento de clients")
 public class ClientController {
 
     private final ClientService service;
