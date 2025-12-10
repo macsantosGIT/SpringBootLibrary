@@ -40,3 +40,23 @@ create table client (
 	scope varchar(50)
 );
 
+# habilitar funcacao de geracao de uuid no postgres
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+insert into client
+(id,client_id,client_secret, redirect_uri, scope)
+values
+(uuid_generate_v4(),'meu-client','$2a$12$D5LBU3WAi9FdA2Y/DHoTxuOk15qML9X8xpTw7FOMBb0CuynshvdKC',
+'http://localhost:8080/authorized','GERENTE');
+
+insert into usuario
+(id, login, senha, email,roles)
+values
+(uuid_generate_v4(), 'gerente', '$2a$12$vP9ufXLH0F0r3QSJ/ha0neFJ2fJ35FgDX9mbQP2jaasar8tgkasGq', 'gerente@email.com',
+'{GERENTE}');
+
+insert into client
+(id,client_id,client_secret, redirect_uri, scope)
+values
+(uuid_generate_v4(),'client-production','$2a$12$2sIOya8Trklx5tOpjQEZsOt.3sdtYQiid9lL/RjnJIpexn7ChDxTq',
+'http://localhost:8080/authorized','GERENTE');
